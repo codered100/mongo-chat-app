@@ -1,1 +1,0 @@
-C:\Users\Jonathan\Documents\azure\Azure\HelloCloud\HelloCloud.csproj;arm
