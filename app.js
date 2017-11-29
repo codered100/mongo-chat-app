@@ -31,10 +31,21 @@ app.use(require('stylus').middleware(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'public')));
 
 // development only
-//oplog.tail();
+oplog.tail();
 
 oplog.on('insert', doc => {
     console.log("AN INSERT DOC");
+    mongo.connect(app.get('db'), function (err, db) {
+        if(err){
+            console.warn(err.message);
+        } else {
+            var collection = db.collection('chatMessages');
+            collection.insert({ content: msg }, function (err, o) {
+                if (err) { console.warn(err.message); }
+                else { console.log("chat message inserted into db: " + msg); }
+            });
+        }
+    });
   });
 
 if ('development' == app.get('env')) {
