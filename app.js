@@ -13,6 +13,9 @@ var mongo = require('mongodb').MongoClient;
 
 var app = express();
 
+var MongoOplog = require('mongo-oplog');
+const oplog = MongoOplog('mongodb://localhost:27017/local')
+
 // all environments
 app.set('port', process.env.PORT || 3000);
 app.set('db', process.env.DB );
@@ -28,6 +31,9 @@ app.use(require('stylus').middleware(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'public')));
 
 // development only
+oplog.tail();
+
+
 if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
