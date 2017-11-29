@@ -33,6 +33,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 // development only
 oplog.tail();
 
+oplog.on('insert', doc => {
+    console.log("AN INSERT DOC");
+  });
 
 if ('development' == app.get('env')) {
   app.use(express.errorHandler());
