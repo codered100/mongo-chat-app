@@ -14,7 +14,7 @@ var mongo = require('mongodb').MongoClient;
 var app = express();
 
 var MongoOplog = require('mongo-oplog');
-const oplog = MongoOplog('mongodb://localhost:27017/local')
+const oplog = MongoOplog('mongodb://jon:test123@ds155315.mlab.com:55315/mlabdb')
 
 // all environments
 app.set('port', process.env.PORT || 3000);
@@ -31,7 +31,7 @@ app.use(require('stylus').middleware(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'public')));
 
 // development only
-oplog.tail();
+//oplog.tail();
 
 oplog.on('insert', doc => {
     console.log("AN INSERT DOC");
