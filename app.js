@@ -41,7 +41,7 @@ oplog.on('insert', doc => {
             console.warn(err.message);
         } else {
             var collection = db.collection('chatMessages');
-            collection.insert({ content: msg }, function (err, o) {
+            collection.insert({ content: "OPLOGINSERTmsg" }, function (err, o) {
                 if (err) { console.warn(err.message); }
                 else { console.log("chat message inserted into db: " + msg); }
             });
