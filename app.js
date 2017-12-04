@@ -35,9 +35,11 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // development only
 //oplog.tail();
+/*
 oplog.tail().then(() => {
     console.log('tailing started')
   }).catch(err => console.error(err))
+  */
 /*
 oplog.on('insert', doc => {
     console.log("AN INSERT DOC");
@@ -54,6 +56,7 @@ oplog.on('insert', doc => {
     });
   });
 */
+
 if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
@@ -65,9 +68,7 @@ oplog.on('update', doc => {
      console.log(doc);
    });
 
-   oplog.on('insert', doc => {
-       console.log("inserted msg from oplog");
-   });    
+
 
 app.get('/', routes.index);
 app.get('/users', user.list);
@@ -80,7 +81,14 @@ serve.listen(app.get('port'), function () {
 });
 
 io.on('connection', function (socket) {
+
     console.log('a user connected');
+    oplog.tail().then(() => {
+        console.log('tailing started')
+      }).catch(err => console.error(err))
+      oplog.on('insert', doc => {
+        console.log("inserted msg from oplog");
+    });    
 /*
     mongo.connect(app.get('db'), function (err, db) {
         if(err){
