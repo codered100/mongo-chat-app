@@ -60,7 +60,7 @@ oplog.tail().then(() => {
   }).catch(err => console.error(err));
 
   oplog.on('insert', doc => {
-    console.log("inserted msg from oplog");
+    console.log(doc);
 });    
 
 io.on('connection', function (socket) {
