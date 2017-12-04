@@ -63,30 +63,15 @@ oplog.tail().then(() => {
     console.log(doc);
 });    
 
-oplog.on('op', data => {
-    //console.log(data);
-  });
-   
-  oplog.on('update', doc => {
-   // console.log(doc);
-  });
-   
-  oplog.on('delete', doc => {
+oplog.on('delete', doc => {
     console.log("DELETED DOC");
     //console.log("doc.o._id");
   });
-   
-  oplog.on('error', error => {
-    console.log(error);
-  });
-   
-  oplog.on('end', () => {
-    console.log('Stream ended');
-  });
-   
-  oplog.stop(() => {
+  
+oplog.stop(() => {
     console.log('server stopped');
   });
+  
 
 io.on('connection', function (socket) {
 
