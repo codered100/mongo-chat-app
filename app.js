@@ -62,7 +62,15 @@ oplog.tail().then(() => {
   oplog.on('insert', doc => {
     console.log("oplog inserted something");
 });    
+
+oplog.on('end', () => {
+    console.log('Stream ended');
+  });
   
+oplog.on('delete', doc => {
+    console.log("DELETED DOC");
+    //console.log("doc.o._id");
+  });
 
 io.on('connection', function (socket) {
 
