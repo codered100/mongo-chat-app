@@ -34,41 +34,16 @@ app.use(require('stylus').middleware(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'public')));
 
 // development only
-//oplog.tail();
-/*
-oplog.tail().then(() => {
-    console.log('tailing started')
-  }).catch(err => console.error(err))
-  */
-/*
-oplog.on('insert', doc => {
-    console.log("AN INSERT DOC");
-    mongo.connect(app.get('db'), function (err, db) {
-        if(err){
-            console.warn(err.message);
-        } else {
-            var collection = db.collection('chatMessages');
-            collection.insert({ content: "OPLOGINSERTMSG" }, function (err, o) {
-                if (err) { console.warn(err.message); }
-                else { console.log("chat message inserted into db: " + msg); }
-            });
-        }
-    });
-  });
-*/
 
 if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
-
 
 oplog.on('update', doc => {
     console.log("oplog update");
     
      console.log(doc);
    });
-
-
 
 app.get('/', routes.index);
 app.get('/users', user.list);
@@ -92,8 +67,6 @@ io.on('connection', function (socket) {
 
     console.log('a user connected');
 
-    
-
     mongo.connect(app.get('db'), function (err, db) {
         if(err){
             console.warn(err.message);
@@ -101,13 +74,11 @@ io.on('connection', function (socket) {
             var collection = db.collection('chatMessages')
             var stream = collection.find().sort().limit(100).stream();
             stream.on('data', function (chat) { console.log('emitting chat'); socket.emit('chat', chat.content); });
-            //db.close(); //JON ADDED
         }
     });
 
     socket.on('disconnect', function () {
         console.log('user disconnected');
-        //db.close();
     });
 
     socket.on('chat', function (msg) {
@@ -120,7 +91,6 @@ io.on('connection', function (socket) {
                     if (err) { console.warn(err.message); }
                     else { console.log("chat message inserted into db: " + msg); }
                     db.close();                
-                    
                 });
             }
             
@@ -142,7 +112,6 @@ oplog.on('insert', doc => {
         }
     });
   });
-
 */
         socket.broadcast.emit('chat', msg);
     });
