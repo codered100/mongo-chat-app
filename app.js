@@ -52,7 +52,23 @@ oplog.on('insert', doc => {
 if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
-
+oplog.on('insert', doc => {
+    console.log("AN INSERT DOC");
+    mongo.connect(app.get('db'), function (err, db) {
+        if(err){
+            console.warn(err.message);
+        } else {
+            var collection = db.collection('chatMessages');
+            collection.insert({ content: "OPLOGASD" }, function (err, o) {
+                if (err) { console.warn(err.message); }
+                else { console.log("chat message inserted into db: " + msg); }
+                db.close();                
+                
+            });
+        }
+    });
+  });
+  
 app.get('/', routes.index);
 app.get('/users', user.list);
 
@@ -108,20 +124,5 @@ io.on('connection', function (socket) {
 */
         socket.broadcast.emit('chat', msg);
     });
-    oplog.on('insert', doc => {
-        console.log("AN INSERT DOC");
-        mongo.connect(app.get('db'), function (err, db) {
-            if(err){
-                console.warn(err.message);
-            } else {
-                var collection = db.collection('chatMessages');
-                collection.insert({ content: "OPLOGASD" }, function (err, o) {
-                    if (err) { console.warn(err.message); }
-                    else { console.log("chat message inserted into db: " + msg); }
-                    db.close();                
-                    
-                });
-            }
-        });
-      });
+
 });
