@@ -73,11 +73,13 @@ io.on('connection', function (socket) {
             var collection = db.collection('chatMessages')
             var stream = collection.find().sort().limit(100).stream();
             stream.on('data', function (chat) { console.log('emitting chat'); socket.emit('chat', chat.content); });
+            db.close(); //JON ADDED
         }
     });
 
     socket.on('disconnect', function () {
         console.log('user disconnected');
+        db.close();
     });
 
     socket.on('chat', function (msg) {
