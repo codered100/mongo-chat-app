@@ -92,12 +92,12 @@ io.on('connection', function (socket) {
                     db.close();                
                     
                 });
-                collection.insert({ content: msg }, function (err, o) { //JON ADDED
-                    if (err) { console.warn(err.message); }
-                    else { console.log("chat message inserted into db: " + msg); }
-                    db.close();                
+              //  collection.insert({ content: msg }, function (err, o) { //JON ADDED
+              //      if (err) { console.warn(err.message); }
+              //      else { console.log("chat message inserted into db: " + msg); }
+              //      db.close();                
                     
-                });
+              //  });
             }
             
         });
