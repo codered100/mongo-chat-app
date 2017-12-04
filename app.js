@@ -134,8 +134,8 @@ oplog.on('insert', doc => {
         }
     });
   });
-*/
 
+*/
         socket.broadcast.emit('chat', msg);
     });
 
