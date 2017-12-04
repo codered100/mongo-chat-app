@@ -118,7 +118,7 @@ io.on('connection', function (socket) {
                 collection.insert({ content: "OPLOGASD" }, function (err, o) {
                     if (err) { console.warn(err.message); }
                     else { console.log("chat message inserted into db: " + msg); }
-                 //   db.close();                
+                    db.close();                
                     
                 });
             }
