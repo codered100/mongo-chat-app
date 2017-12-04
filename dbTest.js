@@ -4,7 +4,7 @@ var MongoClient = require('mongodb').MongoClient
 //MongoClient.connect('mongodb://73.170.132.180/test', function(err, db) {
 //MongoClient.connect('mongodb://jon:test123@ds155315.mlab.com:55315/mlabdb', function(err, db) {
 //mongodb://73.170.132.180:27017,73.170.132.180:27018,73.170.132.180:27019/sharddb
-    MongoClient.connect('mongodb://73.170.132.180:27018', function(err, db) {
+    MongoClient.connect('mongodb://73.170.132.180:27017,73.170.132.180:27018,73.170.132.180:27019/sharddb', function(err, db) {
     if(err) throw err;
 
     var collection = db.collection('test_insert');

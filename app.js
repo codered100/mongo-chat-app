@@ -32,7 +32,10 @@ app.use(require('stylus').middleware(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'public')));
 
 // development only
-oplog.tail();
+//oplog.tail();
+oplog.tail().then(() => {
+    console.log('tailing started')
+  }).catch(err => console.error(err))
 /*
 oplog.on('insert', doc => {
     console.log("AN INSERT DOC");
@@ -52,7 +55,11 @@ oplog.on('insert', doc => {
 if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
-
+oplog.on('update', doc => {
+    console.log("oplog update");
+    
+     console.log(doc);
+   });
 
 app.get('/', routes.index);
 app.get('/users', user.list);
@@ -92,7 +99,7 @@ io.on('connection', function (socket) {
                 collection.insert({ content: msg }, function (err, o) {
                     if (err) { console.warn(err.message); }
                     else { console.log("chat message inserted into db: " + msg); }
-                    db.close();                
+                    //db.close();                
                     
                 });
               //  collection.insert({ content: msg }, function (err, o) { //JON ADDED
@@ -115,7 +122,7 @@ oplog.on('insert', doc => {
             collection.insert({ content: "OPLOGASD" }, function (err, o) {
                 if (err) { console.warn(err.message); }
                 else { console.log("chat message inserted into db: " + msg); }
-                db.close();                
+              //  db.close();                
                 
             });
         }
