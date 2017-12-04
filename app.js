@@ -78,9 +78,6 @@ io.on('connection', function (socket) {
 
     socket.on('disconnect', function () {
         console.log('user disconnected');
-        io.close();
-        console.log('io closed');
-        
     });
 
     socket.on('chat', function (msg) {
@@ -98,6 +95,8 @@ io.on('connection', function (socket) {
                     else { console.log("chat message inserted into db: " + msg); }
                 });
             }
+            db.close();
+            
         });
 
         oplog.on('insert', doc => {
@@ -112,6 +111,7 @@ io.on('connection', function (socket) {
                         else { console.log("chat message inserted into db: " + msg); }
                     });
                 }
+                db.close();                
             });
           });
 
