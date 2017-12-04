@@ -60,17 +60,8 @@ oplog.tail().then(() => {
   }).catch(err => console.error(err));
 
   oplog.on('insert', doc => {
-    console.log(doc);
+    console.log("oplog inserted something");
 });    
-
-oplog.on('delete', doc => {
-    console.log("DELETED DOC");
-    //console.log("doc.o._id");
-  });
-  
-oplog.stop(() => {
-    console.log('server stopped');
-  });
   
 
 io.on('connection', function (socket) {
