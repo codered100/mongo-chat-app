@@ -83,13 +83,15 @@ serve.listen(app.get('port'), function () {
 io.on('connection', function (socket) {
 
     console.log('a user connected');
+
     oplog.tail().then(() => {
         console.log('tailing started')
       }).catch(err => console.error(err))
+
       oplog.on('insert', doc => {
         console.log("inserted msg from oplog");
     });    
-/*
+
     mongo.connect(app.get('db'), function (err, db) {
         if(err){
             console.warn(err.message);
@@ -99,7 +101,7 @@ io.on('connection', function (socket) {
             stream.on('data', function (chat) { console.log('emitting chat'); socket.emit('chat', chat.content); });
             //db.close(); //JON ADDED
         }
-    });*/
+    });
 
     socket.on('disconnect', function () {
         console.log('user disconnected');
