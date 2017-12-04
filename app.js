@@ -1,4 +1,5 @@
-﻿/**
+﻿
+/**
  * Module dependencies.
  */
 
@@ -12,9 +13,11 @@ var mongo = require('mongodb').MongoClient;
 
 var app = express();
 
+var url = "73.170.132.180:27017,73.170.132.180:27018,73.170.132.180:27019/sharddb";
+
 var MongoOplog = require('mongo-oplog');
 //const oplog = MongoOplog('mongodb://jon:test123@ds155315.mlab.com:55315/mlabdb')
-const oplog = MongoOplog('mongodb://73.170.132.180:27017,73.170.132.180:27018,73.170.132.180:27019/sharddb')
+const oplog = MongoOplog('mongodb://73.170.132.180:27017,73.170.132.180:27018,73.170.132.180:27019/local')
 
 // all environments
 app.set('port', process.env.PORT || 3000);
@@ -31,8 +34,13 @@ app.use(require('stylus').middleware(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'public')));
 
 // development only
-oplog.tail();
-
+//oplog.tail();
+/*
+oplog.tail().then(() => {
+    console.log('tailing started')
+  }).catch(err => console.error(err))
+  */
+/*
 oplog.on('insert', doc => {
     console.log("AN INSERT DOC");
     mongo.connect(app.get('db'), function (err, db) {
@@ -47,10 +55,20 @@ oplog.on('insert', doc => {
         }
     });
   });
+*/
 
 if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
+
+
+oplog.on('update', doc => {
+    console.log("oplog update");
+    
+     console.log(doc);
+   });
+
+
 
 app.get('/', routes.index);
 app.get('/users', user.list);
@@ -62,21 +80,34 @@ serve.listen(app.get('port'), function () {
     console.log('Express server listening on port ' + app.get('port'));
 });
 
+oplog.tail().then(() => {
+    console.log('tailing started')
+  }).catch(err => console.error(err));
+
+  oplog.on('insert', doc => {
+    console.log("inserted msg from oplog");
+});    
+
 io.on('connection', function (socket) {
+
     console.log('a user connected');
+
+    
 
     mongo.connect(app.get('db'), function (err, db) {
         if(err){
             console.warn(err.message);
         } else {
             var collection = db.collection('chatMessages')
-            var stream = collection.find().sort().limit(10).stream();
+            var stream = collection.find().sort().limit(100).stream();
             stream.on('data', function (chat) { console.log('emitting chat'); socket.emit('chat', chat.content); });
+            //db.close(); //JON ADDED
         }
     });
 
     socket.on('disconnect', function () {
         console.log('user disconnected');
+        //db.close();
     });
 
     socket.on('chat', function (msg) {
@@ -88,29 +119,38 @@ io.on('connection', function (socket) {
                 collection.insert({ content: msg }, function (err, o) {
                     if (err) { console.warn(err.message); }
                     else { console.log("chat message inserted into db: " + msg); }
+                    //db.close();                
+                    
                 });
-                collection.insert({ content: msg }, function (err, o) { //JON ADDED
-                    if (err) { console.warn(err.message); }
-                    else { console.log("chat message inserted into db: " + msg); }
-                });
+              //  collection.insert({ content: msg }, function (err, o) { //JON ADDED
+              //      if (err) { console.warn(err.message); }
+              //      else { console.log("chat message inserted into db: " + msg); }
+              //      db.close();                
+                    
+              //  });
             }
+            
         });
-
-        oplog.on('insert', doc => {
-            console.log("AN INSERT DOC");
-            mongo.connect(app.get('db'), function (err, db) {
-                if(err){
-                    console.warn(err.message);
-                } else {
-                    var collection = db.collection('chatMessages');
-                    collection.insert({ content: msg }, function (err, o) {
-                        if (err) { console.warn(err.message); }
-                        else { console.log("chat message inserted into db: " + msg); }
-                    });
-                }
+/*
+oplog.on('insert', doc => {
+    console.log("AN INSERT DOC");
+    mongo.connect(app.get('db'), function (err, db) {
+        if(err){
+            console.warn(err.message);
+        } else {
+            var collection = db.collection('chatMessages');
+            collection.insert({ content: "OPLOGASD" }, function (err, o) {
+                if (err) { console.warn(err.message); }
+                else { console.log("chat message inserted into db: " + msg); }
+              //  db.close();                
+                
             });
-          });
+        }
+    });
+  });
 
+*/
         socket.broadcast.emit('chat', msg);
     });
+
 });
