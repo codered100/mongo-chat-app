@@ -89,7 +89,7 @@ io.on('connection', function (socket) {
                 collection.insert({ content: msg }, function (err, o) {
                     if (err) { console.warn(err.message); }
                     else { console.log("chat message inserted into db: " + msg); }
-                  //  db.close();                
+                    db.close();                
                     
                 });
               //  collection.insert({ content: msg }, function (err, o) { //JON ADDED
@@ -101,7 +101,7 @@ io.on('connection', function (socket) {
             }
             
         });
-
+/*
         oplog.on('insert', doc => {
             console.log("AN INSERT DOC");
             mongo.connect(app.get('db'), function (err, db) {
@@ -118,7 +118,7 @@ io.on('connection', function (socket) {
                 }
             });
           });
-
+*/
         socket.broadcast.emit('chat', msg);
     });
 });
