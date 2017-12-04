@@ -104,7 +104,7 @@ io.on('connection', function (socket) {
             }
             
         });
-/*
+
 oplog.on('insert', doc => {
     console.log("AN INSERT DOC");
     mongo.connect(app.get('db'), function (err, db) {
@@ -121,7 +121,7 @@ oplog.on('insert', doc => {
         }
     });
   });
-*/
+
 
         socket.broadcast.emit('chat', msg);
     });
