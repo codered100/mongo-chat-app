@@ -22,6 +22,8 @@ const oplog = MongoOplog('mongodb://73.170.132.180:27017/local')
 //Azure IoT Hub inits
 var connectionString = 'HostName=big-iot-hub.azure-devices.net;DeviceId=webapp;SharedAccessKey=rZdb/qCZ0SP+1uhMTbYluWIqaqsECp6D2u26TQYY/nc=';
 //var clientFromConnectionString = require('azure-iot-device-amqp').clientFromConnectionString;
+var client = clientFromConnectionString(connectionString);
+
 var Message = require('azure-iot-device').Message;
 
 
