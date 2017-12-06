@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "azure-iot-device": "^1.2.2",
+    "azure-iot-device-amqp": "^1.2.3",
     "express": "^3.4.4",
     "jade": "*",
     "mongo-oplog": "^2.0.2",
