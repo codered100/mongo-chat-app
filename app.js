@@ -59,6 +59,9 @@ var connectCallback = function (err) {
   };
 };
 
+client.open(connectCallback);
+
+
 if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
@@ -79,7 +82,6 @@ serve.listen(app.get('port'), function () {
     console.log('Express server listening on port ' + app.get('port'));
 });
 
-client.open(connectCallback);
 
 
 oplog.tail().then(() => {
@@ -118,6 +120,14 @@ io.on('connection', function (socket) {
     });
 
     socket.on('chat', function (msg) {
+        client.sendEvent(msg, function (err) {
+      if (err) {
+        console.log(err.toString());
+      } else {
+        console.log('Message sent');
+      };
+    });
+
         mongo.connect(app.get('db'), function (err, db) {
             if(err){
                 console.warn(err.message);
