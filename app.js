@@ -19,6 +19,12 @@ var MongoOplog = require('mongo-oplog');
 //const oplog = MongoOplog('mongodb://jon:test123@ds155315.mlab.com:55315/mlabdb')
 const oplog = MongoOplog('mongodb://73.170.132.180:27017/local')
 
+//Azure IoT Hub inits
+var connectionString = 'HostName=big-iot-hub.azure-devices.net;DeviceId=webapp;SharedAccessKey=rZdb/qCZ0SP+1uhMTbYluWIqaqsECp6D2u26TQYY/nc=';
+var clientFromConnectionString = require('azure-iot-device-amqp').clientFromConnectionString;
+var Message = require('azure-iot-device').Message;
+
+
 // all environments
 app.set('port', process.env.PORT || 3000);
 app.set('db', process.env.DB );
@@ -34,6 +40,22 @@ app.use(require('stylus').middleware(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'public')));
 
 // development only
+
+var connectCallback = function (err) {
+  if (err) {
+    console.error('Could not connect: ' + err);
+  } else {
+    console.log('Client connected');
+    var msg = new Message('some data from my device');
+    client.sendEvent(msg, function (err) {
+      if (err) {
+        console.log(err.toString());
+      } else {
+        console.log('Message sent');
+      };
+    });
+  };
+};
 
 if ('development' == app.get('env')) {
   app.use(express.errorHandler());
@@ -54,6 +76,9 @@ var io = require('socket.io')(serve);
 serve.listen(app.get('port'), function () {
     console.log('Express server listening on port ' + app.get('port'));
 });
+
+client.open(connectCallback);
+
 
 oplog.tail().then(() => {
     console.log('tailing started')
