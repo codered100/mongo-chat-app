@@ -79,7 +79,7 @@ oplog.tail().then(() => {
   }).catch(err => console.error(err));
 
   oplog.on('insert', doc => {
-    console.log(doc);
+    console.log(doc.o.content);
     var mesg = new Message('FROM THE OPLOG');
     
     client.sendEvent(mesg, function (err) {
