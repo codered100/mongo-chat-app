@@ -79,10 +79,10 @@ oplog.tail().then(() => {
   }).catch(err => console.error(err));
 
   oplog.on('insert', doc => {
-    console.log(doc.o.content);
+    console.log(doc.o.temperature);
 
 
-    var data = JSON.stringify({ message: doc.o.content});
+    var data = JSON.stringify({ temperature: doc.o.temperature, humidity: doc.o.humidity, pressure: doc.o.pressure});
     var mesg = new Message(data);
     console.log(data);
     
