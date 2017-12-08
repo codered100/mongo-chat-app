@@ -80,7 +80,7 @@ oplog.tail().then(() => {
 
   oplog.on('insert', doc => {
     console.log(doc.o.content);
-    var mesg = new Message('FROM THE OPLOG');
+    var mesg = new Message(doc.o.content);
     
     client.sendEvent(mesg, function (err) {
         if (err) {
