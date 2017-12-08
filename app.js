@@ -118,6 +118,14 @@ io.on('connection', function (socket) {
 
     socket.on('chat', function (msg) {
 
+        client.sendEvent(msg, function (err) {
+            if (err) {
+              console.log(err.toString());
+            } else {
+              console.log('MESSAGE SENT TO AZURE FROM CHAT');
+            };
+        });
+
         mongo.connect(app.get('db'), function (err, db) {
             if(err){
                 console.warn(err.message);
