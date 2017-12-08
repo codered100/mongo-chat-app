@@ -117,8 +117,9 @@ io.on('connection', function (socket) {
     });
 
     socket.on('chat', function (msg) {
-
-        client.sendEvent(msg, function (err) {
+        var mesg = new Message('some data from my device');
+        
+        client.sendEvent(mesg, function (err) {
             if (err) {
               console.log(err.toString());
             } else {
