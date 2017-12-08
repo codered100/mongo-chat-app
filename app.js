@@ -80,6 +80,16 @@ oplog.tail().then(() => {
 
   oplog.on('insert', doc => {
     console.log("oplog inserted something");
+
+    var mesg = new Message('FROM THE OPLOG');
+    
+    client.sendEvent(mesg, function (err) {
+        if (err) {
+          console.log(err.toString());
+        } else {
+          console.log('MESSAGE SENT WITHIN OPLOG INSERT');
+        };
+    });
 });    
 
 oplog.on('end', () => {
