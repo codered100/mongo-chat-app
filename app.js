@@ -42,6 +42,10 @@ app.use(require('stylus').middleware(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'public')));
 
 // development only
+if ('development' == app.get('env')) {
+    app.use(express.errorHandler());
+  }
+
 
 var connectCallback = function (err) {
   if (err) {
@@ -59,18 +63,6 @@ var connectCallback = function (err) {
   };
 };
 
-client.open(connectCallback);
-
-
-if ('development' == app.get('env')) {
-  app.use(express.errorHandler());
-}
-
-oplog.on('update', doc => {
-    console.log("oplog update");
-    
-     console.log(doc);
-   });
 
 app.get('/', routes.index);
 app.get('/users', user.list);
@@ -81,8 +73,6 @@ var io = require('socket.io')(serve);
 serve.listen(app.get('port'), function () {
     console.log('Express server listening on port ' + app.get('port'));
 });
-
-
 
 oplog.tail().then(() => {
     console.log('tailing started')
@@ -101,8 +91,15 @@ oplog.on('delete', doc => {
     //console.log("doc.o._id");
   });
 
-io.on('connection', function (socket) {
+oplog.on('update', doc => {
+    console.log("oplog update");
+    
+     console.log(doc);
+   });
 
+io.on('connection', function (socket) {
+    client.open(connectCallback);
+    
     console.log('a user connected');
 /*
     mongo.connect(app.get('db'), function (err, db) {
@@ -132,7 +129,6 @@ io.on('connection', function (socket) {
                     db.close();                
                 });
             }
-            
         });
 /*
 oplog.on('insert', doc => {
