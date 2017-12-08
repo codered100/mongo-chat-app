@@ -82,7 +82,7 @@ oplog.tail().then(() => {
     console.log(doc.o.temperature);
 
 
-    var data = JSON.stringify({ temperature: doc.o.temperature, humidity: doc.o.humidity, pressure: doc.o.pressure});
+    var data = JSON.stringify({ temperature: doc.o.temperature, humidity: doc.o.humidity, pressure: doc.o.pressure, id: doc.o.id, station: doc.o.station});
     var mesg = new Message(data);
     console.log(data);
     
@@ -109,9 +109,9 @@ oplog.on('update', doc => {
     
      console.log(doc);
    });
-
+   client.open(connectCallback);
+   
 io.on('connection', function (socket) {
-    client.open(connectCallback);
     
     console.log('a user connected');
 /*
