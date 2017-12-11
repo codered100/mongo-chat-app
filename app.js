@@ -116,7 +116,7 @@ io.on('connection', function (socket) {
         if(err){
             console.warn(err.message);
         } else {
-            var collection = db.collection('chatMessages')
+            var collection = db.collection('test')
             var stream = collection.find().sort().limit(100).stream();
             stream.on('data', function (chat) { console.log('emitting chat'); socket.emit('chat', chat.content); });
         }
@@ -141,7 +141,7 @@ io.on('connection', function (socket) {
             if(err){
                 console.warn(err.message);
             } else {
-                var collection = db.collection('chatMessages');
+                var collection = db.collection('test');
                 collection.insert({ content: msg }, function (err, o) {
                     if (err) { console.warn(err.message); }
                     else { console.log("chat message inserted into db: " + msg); }
