@@ -121,9 +121,9 @@ io.on('connection', function (socket) {
         if(err){
             console.warn(err.message);
         } else {
-            var collection = db.collection('test')
+            var collection = db.collection('UserPlottedTag')
             var stream = collection.find().sort().limit(100).stream();
-            stream.on('data', function (chat) { console.log('emitting chat'); socket.emit('chat', chat.content); });
+            stream.on('data', function (chat) { console.log('emitting chat'); socket.emit('desc', chat.content); });
         }
     });
 
@@ -142,12 +142,12 @@ io.on('connection', function (socket) {
             };
         });
 
-        /*
+        
         mongo.connect(app.get('db'), function (err, db) {
             if(err){
                 console.warn(err.message);
             } else {
-                var collection = db.collection('test');
+                var collection = db.collection('UserPlottedTag');
                 collection.insert({ content: msg }, function (err, o) {
                     if (err) { console.warn(err.message); }
                     else { console.log("chat message inserted into db: " + msg); }
@@ -155,7 +155,7 @@ io.on('connection', function (socket) {
                 });
             }
         });
-        */
+        
 /*
 oplog.on('insert', doc => {
     console.log("AN INSERT DOC");
