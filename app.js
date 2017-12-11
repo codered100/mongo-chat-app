@@ -142,7 +142,7 @@ io.on('connection', function (socket) {
             };
         });
 
-        
+        /*
         mongo.connect(app.get('db'), function (err, db) {
             if(err){
                 console.warn(err.message);
@@ -155,7 +155,7 @@ io.on('connection', function (socket) {
                 });
             }
         });
-        
+        */
 /*
 oplog.on('insert', doc => {
     console.log("AN INSERT DOC");
