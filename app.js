@@ -15,9 +15,9 @@ var app = express();
   
 //var url = "73.170.132.180:27017,73.170.132.180:27018,73.170.132.180:27019/sharddb";
 
-var MongoOplog = require('mongo-oplog');
+//var MongoOplog = require('mongo-oplog');
 //const oplog = MongoOplog('mongodb://jon:test123@ds155315.mlab.com:55315/mlabdb')
-const oplog = MongoOplog('mongodb://73.170.132.180:27017/local')
+//const oplog = MongoOplog('mongodb://73.170.132.180:27017/local')
 
 //Azure IoT Hub inits
 var connectionString = 'HostName=big-iot-hub.azure-devices.net;DeviceId=webapp;SharedAccessKey=rZdb/qCZ0SP+1uhMTbYluWIqaqsECp6D2u26TQYY/nc=';
