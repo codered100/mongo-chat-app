@@ -123,7 +123,7 @@ io.on('connection', function (socket) {
         } else {
             var collection = db.collection('UserPlottedTag')
             var stream = collection.find().sort().limit(100).stream();
-            stream.on('data', function (chat) { console.log('emitting chat'); socket.emit('desc', chat.content); });
+            stream.on('data', function (chat) { console.log('emitting chat'); socket.emit('chat', chat.content); });
         }
     });
 
