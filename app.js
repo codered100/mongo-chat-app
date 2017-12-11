@@ -13,11 +13,11 @@ var mongo = require('mongodb').MongoClient;
 
 var app = express();
   
-var url = "73.170.132.180:27017,73.170.132.180:27018,73.170.132.180:27019/sharddb";
+//var url = "73.170.132.180:27017,73.170.132.180:27018,73.170.132.180:27019/sharddb";
 
 var MongoOplog = require('mongo-oplog');
 //const oplog = MongoOplog('mongodb://jon:test123@ds155315.mlab.com:55315/mlabdb')
-//const oplog = MongoOplog('mongodb://73.170.132.180:27017/local')
+const oplog = MongoOplog('mongodb://73.170.132.180:27017/local')
 
 //Azure IoT Hub inits
 var connectionString = 'HostName=big-iot-hub.azure-devices.net;DeviceId=webapp;SharedAccessKey=rZdb/qCZ0SP+1uhMTbYluWIqaqsECp6D2u26TQYY/nc=';
@@ -72,7 +72,7 @@ var io = require('socket.io')(serve);
 serve.listen(app.get('port'), function () {
     console.log('Express server listening on port ' + app.get('port'));
 });
-
+/*
 oplog.tail().then(() => {
     console.log('tailing started')
   }).catch(err => console.error(err));
@@ -107,11 +107,11 @@ oplog.on('update', doc => {
      //console.log(doc);
    });
    client.open(connectCallback);
-   
+   */
 io.on('connection', function (socket) {
     
     console.log('a user connected');
-/*
+
     mongo.connect(app.get('db'), function (err, db) {
         if(err){
             console.warn(err.message);
@@ -120,7 +120,7 @@ io.on('connection', function (socket) {
             var stream = collection.find().sort().limit(100).stream();
             stream.on('data', function (chat) { console.log('emitting chat'); socket.emit('chat', chat.content); });
         }
-    });*/
+    });
 
     socket.on('disconnect', function () {
         console.log('user disconnected');
@@ -136,7 +136,7 @@ io.on('connection', function (socket) {
               console.log('MESSAGE SENT TO AZURE FROM CHAT');
             };
         });
-/*
+
         mongo.connect(app.get('db'), function (err, db) {
             if(err){
                 console.warn(err.message);
@@ -149,7 +149,7 @@ io.on('connection', function (socket) {
                 });
             }
         });
-        */
+        
 /*
 oplog.on('insert', doc => {
     console.log("AN INSERT DOC");
