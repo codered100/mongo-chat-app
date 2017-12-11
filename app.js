@@ -12,7 +12,7 @@ var path = require('path');
 var mongo = require('mongodb').MongoClient;
 
 var app = express();
-
+  
 var url = "73.170.132.180:27017,73.170.132.180:27018,73.170.132.180:27019/sharddb";
 
 var MongoOplog = require('mongo-oplog');
@@ -23,7 +23,6 @@ const oplog = MongoOplog('mongodb://73.170.132.180:27017/local')
 var connectionString = 'HostName=big-iot-hub.azure-devices.net;DeviceId=webapp;SharedAccessKey=rZdb/qCZ0SP+1uhMTbYluWIqaqsECp6D2u26TQYY/nc=';
 var clientFromConnectionString = require('azure-iot-device-amqp').clientFromConnectionString;
 var client = clientFromConnectionString(connectionString);
-
 var Message = require('azure-iot-device').Message;
 
 
@@ -79,9 +78,7 @@ oplog.tail().then(() => {
   }).catch(err => console.error(err));
 
   oplog.on('insert', doc => {
-    console.log(doc.o.temperature);
-
-
+  //  console.log(doc.o.temperature);
     var data = JSON.stringify({ temperature: doc.o.temperature, humidity: doc.o.humidity, pressure: doc.o.pressure, id: doc.o.id, station: doc.o.station});
     var mesg = new Message(data);
     console.log(data);
@@ -107,7 +104,7 @@ oplog.on('delete', doc => {
 oplog.on('update', doc => {
     console.log("oplog update");
     
-     console.log(doc);
+     //console.log(doc);
    });
    client.open(connectCallback);
    
@@ -139,7 +136,7 @@ io.on('connection', function (socket) {
               console.log('MESSAGE SENT TO AZURE FROM CHAT');
             };
         });
-
+/*
         mongo.connect(app.get('db'), function (err, db) {
             if(err){
                 console.warn(err.message);
@@ -152,6 +149,7 @@ io.on('connection', function (socket) {
                 });
             }
         });
+        */
 /*
 oplog.on('insert', doc => {
     console.log("AN INSERT DOC");
