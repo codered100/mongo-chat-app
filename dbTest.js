@@ -8,13 +8,13 @@ var MongoClient = require('mongodb').MongoClient
     MongoClient.connect('mongodb://jon:test123@ds155315.mlab.com:55315/mlabdb', function(err, db) {
     if(err) throw err;
 
-    var collection = db.collection('test_insert');
+  /*  var collection = db.collection('test_insert');
     collection.insert({a:2}, function(err, docs) {
         collection.count(function(err, count) {
             console.log(format("count = %s", count));
         });
     });
-
+*/
     // Locate all the entries using find
     collection.find().toArray(function(err, results) {
         console.dir(results);
