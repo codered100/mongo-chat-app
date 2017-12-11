@@ -15,7 +15,7 @@ var Db = require('mongodb').Db,
   var mongoclient = new MongoClient(new Server("ds155315.mlab.com", 55315), {native_parser: true});
   // Open the connection to the server
   mongoclient.open(function(err, mongoclient) {
-
+/*
     // Get the first db and do an update document on it
     var db = mongoclient.db("integration_tests");
     db.collection('mongoclient_test').update({a:1}, {b:1}, {upsert:true}, function(err, result) {
@@ -32,4 +32,5 @@ var Db = require('mongodb').Db,
         mongoclient.close();
       });
     });
+    */
   });
