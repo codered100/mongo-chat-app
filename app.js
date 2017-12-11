@@ -12,7 +12,7 @@ var path = require('path');
 var mongo = require('mongodb').MongoClient;
 
 var app = express();
-  
+ //THIS WAS IN AZURE SETTINGS:DB    mongodb://73.170.132.180:27017,73.170.132.180:27018,73.170.132.180:27019/sharddb 
 //var url = "73.170.132.180:27017,73.170.132.180:27018,73.170.132.180:27019/sharddb";
 
 //var MongoOplog = require('mongo-oplog');
@@ -116,7 +116,7 @@ io.on('connection', function (socket) {
         if(err){
             console.warn(err.message);
         } else {
-            var collection = db.collection('chatMessages')
+            var collection = db.collection('test')
             var stream = collection.find().sort().limit(100).stream();
             stream.on('data', function (chat) { console.log('emitting chat'); socket.emit('chat', chat.content); });
         }
@@ -136,7 +136,7 @@ io.on('connection', function (socket) {
               console.log('MESSAGE SENT TO AZURE FROM CHAT');
             };
         });
-
+/*
         mongo.connect(app.get('db'), function (err, db) {
             if(err){
                 console.warn(err.message);
@@ -149,7 +149,7 @@ io.on('connection', function (socket) {
                 });
             }
         });
-        
+        */
 /*
 oplog.on('insert', doc => {
     console.log("AN INSERT DOC");
