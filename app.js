@@ -105,14 +105,14 @@ oplog.on('delete', doc => {
     console.log("DELETED DOC");
     //console.log("doc.o._id");
   });
-
+*/
 oplog.on('update', doc => {
     console.log("oplog update");
     
-     //console.log(doc);
+     console.log(doc);
    });
 
-   */
+   
    client.open(connectCallback);
    
 io.on('connection', function (socket) {
