@@ -135,7 +135,7 @@ io.on('connection', function (socket) {
         console.log('tailing started')
       }).catch(err => console.error(err));
     console.log('a user connected');
-
+/*
     mongo.connect(app.get('db'), function (err, db) {
         if(err){
             console.warn(err.message);
@@ -145,11 +145,11 @@ io.on('connection', function (socket) {
             stream.on('data', function (chat) { console.log('emitting chat'); socket.emit('chat', chat.desc); });
         }
     });
-
+*/
     socket.on('disconnect', function () {
         console.log('user disconnected');
     });
-
+/*
     socket.on('chat', function (msg) {
         var mesg = new Message(msg);
         
@@ -193,7 +193,9 @@ oplog.on('insert', doc => {
     });
   });
 */
+
+/*
         socket.broadcast.emit('chat', msg);
     });
-
+*/
 });
