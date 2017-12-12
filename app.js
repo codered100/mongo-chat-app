@@ -18,8 +18,8 @@ var app = express();
 var MongoOplog = require('mongo-oplog');
 //const oplog = MongoOplog('mongodb://jon:test123@ds155315.mlab.com:55315/mlabdb')
 //const oplog = MongoOplog('mongodb://73.170.132.180:27017/local')
-//const oplog = MongoOplog('mongodb://oplog-reader:tenacore1525@ds135125-a0.mlab.com:35125,ds135125-a1.mlab.com:35125/local?replicaSet=rs-ds135125authSource=admin')
-const oplog = MongoOplog('mongodb://koliada:tenacore1525@ds135125-a0.mlab.com:35125,ds135125-a1.mlab.com:35125/local?replicaSet=rs-ds135125')
+const oplog = MongoOplog('mongodb://oplog-reader:tenacore1525@ds135125-a0.mlab.com:35125,ds135125-a1.mlab.com:35125/local?replicaSet=rs-ds135125authSource=admin')
+//const oplog = MongoOplog('mongodb://koliada:tenacore1525@ds135125-a0.mlab.com:35125,ds135125-a1.mlab.com:35125/local?replicaSet=rs-ds135125authSource=')
 //Azure IoT Hub inits
 var connectionString = 'HostName=big-iot-hub.azure-devices.net;DeviceId=webapp;SharedAccessKey=rZdb/qCZ0SP+1uhMTbYluWIqaqsECp6D2u26TQYY/nc=';
 var clientFromConnectionString = require('azure-iot-device-amqp').clientFromConnectionString;
@@ -93,9 +93,24 @@ oplog.tail().then(() => {
           console.log('MESSAGE SENT WITHIN OPLOG INSERT');
         };
     });
-    
-    
 }); 
+
+oplog.on('op', data => {
+    console.log(data);
+  });
+   
+  oplog.on('delete', doc => {
+    console.log(doc.o._id);
+  });
+   
+  oplog.on('error', error => {
+    console.log(error);
+  });
+   
+  oplog.on('end', () => {
+    console.log('Stream ended');
+  });
+
 /*
 oplog.on('end', () => {
     console.log('Stream ended');
