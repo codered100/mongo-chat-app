@@ -83,6 +83,7 @@ oplog.tail().then(() => {
   //  console.log(doc.o.temperature);
     //var data = JSON.stringify({ temperature: doc.o.temperature, humidity: doc.o.humidity, pressure: doc.o.pressure, id: doc.o.id, station: doc.o.station});
   //  var mesg = new Message(data);
+  console.log("oplog insert statement");
     console.log(doc);
     
     /*
