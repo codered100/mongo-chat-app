@@ -94,11 +94,11 @@ oplog.tail().then(() => {
         };
     });
 }); 
-
+/*
 oplog.on('op', data => {
     console.log(data);
   });
-   
+   */
   oplog.on('delete', doc => {
     console.log(doc.o._id);
   });
