@@ -82,10 +82,10 @@ oplog.tail().then(() => {
  oplog.on('insert', doc => {
   //  console.log(doc.o.temperature);
     //var data = JSON.stringify({ temperature: doc.o.temperature, humidity: doc.o.humidity, pressure: doc.o.pressure, id: doc.o.id, station: doc.o.station});
-    var mesg = new Message(data);
+  //  var mesg = new Message(data);
     console.log(doc);
     
-    
+    /*
     client.sendEvent(mesg, function (err) {
         if (err) {
           console.log(err.toString());
@@ -93,6 +93,7 @@ oplog.tail().then(() => {
           console.log('MESSAGE SENT WITHIN OPLOG INSERT');
         };
     });
+    */
 }); 
 /*
 oplog.on('op', data => {
