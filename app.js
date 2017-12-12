@@ -122,12 +122,13 @@ oplog.on('delete', doc => {
     //console.log("doc.o._id");
   });
 */
+/*
 oplog.on('update', doc => {
     console.log("oplog update");
     
      console.log(doc);
    });
-
+*/
    
    client.open(connectCallback);
    
