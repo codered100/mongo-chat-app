@@ -18,7 +18,7 @@ var app = express();
 var MongoOplog = require('mongo-oplog');
 //const oplog = MongoOplog('mongodb://jon:test123@ds155315.mlab.com:55315/mlabdb')
 //const oplog = MongoOplog('mongodb://73.170.132.180:27017/local')
-const oplog = MongoOplog('mongodb://oplog-reader:tenacore1525@ds135125-a0.mlab.com:35125,ds135125-a1.mlab.com:35125/local?replicaSet=rs-ds135125')
+const oplog = MongoOplog('mongodb://oplog-reader:tenacore1525@ds135125-a0.mlab.com:35125,ds135125-a1.mlab.com:35125/local?replicaSet=rs-ds135125authSource=admin')
 //const oplog = MongoOplog('mongodb://koliada:tenacore1525@ds135125-a0.mlab.com:35125,ds135125-a1.mlab.com:35125/local?replicaSet=rs-ds135125authSource=')
 //Azure IoT Hub inits
 var connectionString = 'HostName=big-iot-hub.azure-devices.net;DeviceId=webapp;SharedAccessKey=rZdb/qCZ0SP+1uhMTbYluWIqaqsECp6D2u26TQYY/nc=';
@@ -73,11 +73,11 @@ var io = require('socket.io')(serve);
 serve.listen(app.get('port'), function () {
     console.log('Express server listening on port ' + app.get('port'));
 });
-
+/*
 oplog.tail().then(() => {
     console.log('tailing started')
   }).catch(err => console.error(err));
-
+*/
 
  oplog.on('insert', doc => {
   //  console.log(doc.o.temperature);
@@ -131,7 +131,9 @@ oplog.on('update', doc => {
    client.open(connectCallback);
    
 io.on('connection', function (socket) {
-    
+    oplog.tail().then(() => {
+        console.log('tailing started')
+      }).catch(err => console.error(err));
     console.log('a user connected');
 
     mongo.connect(app.get('db'), function (err, db) {
