@@ -73,11 +73,11 @@ var io = require('socket.io')(serve);
 serve.listen(app.get('port'), function () {
     console.log('Express server listening on port ' + app.get('port'));
 });
-/*
+
 oplog.tail().then(() => {
     console.log('tailing started')
   }).catch(err => console.error(err));
-*/
+
 
  oplog.on('insert', doc => {
   //  console.log(doc.o.temperature);
@@ -133,9 +133,7 @@ oplog.on('update', doc => {
    client.open(connectCallback);
    
 io.on('connection', function (socket) {
-    oplog.tail().then(() => {
-        console.log('tailing started')
-      }).catch(err => console.error(err));
+
     console.log('a user connected');
 /*
     mongo.connect(app.get('db'), function (err, db) {
