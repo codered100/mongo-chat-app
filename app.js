@@ -82,12 +82,12 @@ oplog.tail().then(() => {
  oplog.on('insert', doc => {
   //  console.log(doc.o.temperature);
     //var data = JSON.stringify({ temperature: doc.o.temperature, humidity: doc.o.humidity, pressure: doc.o.pressure, id: doc.o.id, station: doc.o.station});
-  //  var mesg = new Message(data);
+    var mesg = new Message(doc);
   console.log("oplog insert statement");
     console.log(doc);
     
     
-    client.sendEvent(doc, function (err) {
+    client.sendEvent(mesg, function (err) {
         if (err) {
           console.log(err.toString());
         } else {
