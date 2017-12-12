@@ -86,15 +86,15 @@ oplog.tail().then(() => {
   console.log("oplog insert statement");
     console.log(doc);
     
-    /*
-    client.sendEvent(mesg, function (err) {
+    
+    client.sendEvent(doc, function (err) {
         if (err) {
           console.log(err.toString());
         } else {
           console.log('MESSAGE SENT WITHIN OPLOG INSERT');
         };
     });
-    */
+    
 }); 
 /*
 oplog.on('op', data => {
@@ -102,10 +102,14 @@ oplog.on('op', data => {
   });
    */
   oplog.on('delete', doc => {
+    console.log("oplog delete statement");
+    
     console.log(doc.o._id);
   });
    
   oplog.on('error', error => {
+    console.log("oplog error statement");
+    
     console.log(error);
   });
    
