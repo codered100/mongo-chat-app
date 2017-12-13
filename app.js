@@ -90,7 +90,12 @@ oplog.tail().then(() => {
     console.log("2");
     console.log(doc.o.o);
     console.log("3");
+    console.log(doc.o._acl);
+    console.log("4");
     console.log(doc.o._acl.role);
+    console.log("5");
+    console.log(doc._acl);
+    
 
   console.log("oplog insert statement");
    // console.log(doc);
