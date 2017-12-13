@@ -85,7 +85,7 @@ oplog.tail().then(() => {
     var temp = doc.o._acl;
     console.log(temp);
 
-    var role = temp.substring(0, temp.indexOf(":"));
+    var role = temp.split("/'", 1)
     console.log("what is the role?");
     console.log(role);
     
