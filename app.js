@@ -96,6 +96,13 @@ oplog.tail().then(() => {
         var mesg = new Message(JSON.stringify({ uuidRaw: doc.o.uuidRaw, _id: doc.o._id, _p_pd: doc.o._p_pd,_p_uuid: doc.o._p_uuid, _p_tag: doc.o._p_tag, _p_pd_coord: doc.o._p_pd_coord, major: doc.o.major, minor: doc.o.minor, txPwr: doc.o.txPwr, rssi: doc.o.rssi, role: doc.o._wperm, _created_at: doc.o._created_at, _updated_at: doc.o._updated_at}));
     console.log("1");
     console.log(mesg);
+    client.sendEvent(mesg, function (err) {
+        if (err) {
+          console.log(err.toString());
+        } else {
+          console.log('MESSAGE SENT WITHIN OPLOG INSERT');
+        };
+    });
  }
  console.log("printing full doc...");
     console.log(doc.o);
@@ -107,13 +114,7 @@ oplog.tail().then(() => {
    // console.log(doc);
     
     
-    client.sendEvent(mesg, function (err) {
-        if (err) {
-          console.log(err.toString());
-        } else {
-          console.log('MESSAGE SENT WITHIN OPLOG INSERT');
-        };
-    });
+
     
 }); 
 /*
