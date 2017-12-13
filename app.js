@@ -82,13 +82,13 @@ oplog.tail().then(() => {
  oplog.on('insert', doc => {
   //  console.log(doc.o.temperature);
     //var data = JSON.stringify({ temperature: doc.o.temperature, humidity: doc.o.humidity, pressure: doc.o.pressure, id: doc.o.id, station: doc.o.station});
-    var temp = stringify(doc.o._acl);
+  //  var temp = stringify(doc.o._acl);
     
-    console.log(temp);
+   // console.log(temp);
 
-    var role = temp.split("/'", 1)
-    console.log("what is the role?");
-    console.log(role);
+   // var role = temp.split("/'", 1)
+   // console.log("what is the role?");
+   // console.log(role);
     
     var mesg = new Message(JSON.stringify({ uuidRaw: doc.o.uuidRaw, _id: doc.o._id, _p_uuid: doc.o._p_uuid, _p_tag: doc.o._p_tag, _p_pd_coord: doc.o._p_pd_coord, major: doc.o.major, minor: doc.o.minor, txPwr: doc.o.txPwr, rssi: doc.o.rssi, role: doc.o._acl, _created_at: doc.o._created_at, _updated_at: doc.o._updated_at}));
     console.log("1");
