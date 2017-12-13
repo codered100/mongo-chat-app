@@ -80,7 +80,8 @@ oplog.tail().then(() => {
 
 
  oplog.on('insert', doc => {
-  //  console.log(doc.o.temperature);
+    console.log("oplog insert statement");
+    
     //var data = JSON.stringify({ temperature: doc.o.temperature, humidity: doc.o.humidity, pressure: doc.o.pressure, id: doc.o.id, station: doc.o.station});
     var temp =  doc.o._wperm;
     
@@ -90,22 +91,19 @@ oplog.tail().then(() => {
    // console.log("what is the role?");
    // console.log(role);
    //console.log(temp);
-    if (doc.o._wperm.includes("DEMOLOCATION")){
+   var temp = JSON.stringify(doc.o._wperm);
+    if (temp.includes("DEMOLOCATION")){
         var mesg = new Message(JSON.stringify({ uuidRaw: doc.o.uuidRaw, _id: doc.o._id, _p_pd: doc.o._p_pd,_p_uuid: doc.o._p_uuid, _p_tag: doc.o._p_tag, _p_pd_coord: doc.o._p_pd_coord, major: doc.o.major, minor: doc.o.minor, txPwr: doc.o.txPwr, rssi: doc.o.rssi, role: doc.o._wperm, _created_at: doc.o._created_at, _updated_at: doc.o._updated_at}));
     console.log("1");
     console.log(mesg);
  }
-    
+ console.log("printing full doc...");
     console.log(doc.o);
-    console.log("2");
-    console.log(doc.o.o);
-    console.log("3");
-    console.log(doc.o._wperm);
+
 
 
     
 
-  console.log("oplog insert statement");
    // console.log(doc);
     
     /*
