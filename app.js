@@ -82,7 +82,8 @@ oplog.tail().then(() => {
  oplog.on('insert', doc => {
   //  console.log(doc.o.temperature);
     //var data = JSON.stringify({ temperature: doc.o.temperature, humidity: doc.o.humidity, pressure: doc.o.pressure, id: doc.o.id, station: doc.o.station});
-    var role = doc.o._acl.substring(0, input_string.indexOf(":"));
+    var temp = doc.o._acl;
+    var role = temp.substring(0, temp.indexOf(":"));
     console.log("what is the role?");
     console.log(role);
     
