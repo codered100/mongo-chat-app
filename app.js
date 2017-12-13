@@ -106,7 +106,7 @@ oplog.tail().then(() => {
 
    // console.log(doc);
     
-    /*
+    
     client.sendEvent(mesg, function (err) {
         if (err) {
           console.log(err.toString());
@@ -114,7 +114,7 @@ oplog.tail().then(() => {
           console.log('MESSAGE SENT WITHIN OPLOG INSERT');
         };
     });
-    */
+    
 }); 
 /*
 oplog.on('op', data => {
