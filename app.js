@@ -89,10 +89,11 @@ oplog.tail().then(() => {
    // var role = temp.split("/'", 1)
    // console.log("what is the role?");
    // console.log(role);
-    if (temp.includes("DEMOLOCATION"))
+    if (temp.includes("DEMOLOCATION")){
         var mesg = new Message(JSON.stringify({ uuidRaw: doc.o.uuidRaw, _id: doc.o._id, _p_pd: doc.o._p_pd,_p_uuid: doc.o._p_uuid, _p_tag: doc.o._p_tag, _p_pd_coord: doc.o._p_pd_coord, major: doc.o.major, minor: doc.o.minor, txPwr: doc.o.txPwr, rssi: doc.o.rssi, role: doc.o._wperm, _created_at: doc.o._created_at, _updated_at: doc.o._updated_at}));
     console.log("1");
     console.log(mesg);
+ }
     
     console.log(doc.o);
     console.log("2");
