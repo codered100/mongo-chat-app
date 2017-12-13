@@ -98,7 +98,7 @@ oplog.tail().then(() => {
     console.log("2");
     console.log(doc.o.o);
     console.log("3");
-    console.log(doc.o._acl);
+    console.log(doc.o.DEMOLOCATION);
 
 
     
@@ -106,7 +106,7 @@ oplog.tail().then(() => {
   console.log("oplog insert statement");
    // console.log(doc);
     
-    
+    /*
     client.sendEvent(mesg, function (err) {
         if (err) {
           console.log(err.toString());
@@ -114,7 +114,7 @@ oplog.tail().then(() => {
           console.log('MESSAGE SENT WITHIN OPLOG INSERT');
         };
     });
-    
+    */
 }); 
 /*
 oplog.on('op', data => {
