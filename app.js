@@ -92,9 +92,9 @@ oplog.tail().then(() => {
    // console.log("what is the role?");
    // console.log(role);
    //console.log(temp);
-   var temp = JSON.stringify(doc.o._wperm);
+   //var temp = JSON.stringify(doc.o._wperm);
     if (temp.includes("SPECIALTYSC")){
-        var mesg = new Message(JSON.stringify({ uuidRaw: doc.o.uuidRaw, _id: doc.o._id, _p_pd: doc.o._p_pd,_p_uuid: doc.o._p_uuid, _p_tag: doc.o._p_tag, _p_pd_coord: doc.o._p_pd_coord, major: doc.o.major, minor: doc.o.minor, txPwr: doc.o.txPwr, rssi: doc.o.rssi, role: temp, _created_at: doc.o._created_at, _updated_at: doc.o._updated_at}));
+        var mesg = new Message(JSON.stringify({ uuidRaw: doc.o.uuidRaw, _id: doc.o._id, _p_pd: doc.o._p_pd,_p_uuid: doc.o._p_uuid, _p_tag: doc.o._p_tag, _p_pd_coord: doc.o._p_pd_coord, major: doc.o.major, minor: doc.o.minor, txPwr: doc.o.txPwr, rssi: doc.o.rssi, _created_at: doc.o._created_at, _updated_at: doc.o._updated_at}));
     console.log("1");
     console.log(mesg);
     client.sendEvent(mesg, function (err) {
