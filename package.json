@@ -8,6 +8,7 @@
     "email": ""
   },
   "dependencies": {
+    "async": "^2.6.0",
     "azure-iot-device": "^1.2.2",
     "azure-iot-device-amqp": "^1.2.3",
     "express": "^3.4.4",
@@ -15,6 +16,7 @@
     "mongo-oplog": "^2.0.2",
     "mongodb": "^1.4.19",
     "socket.io": "^1.0.6",
-    "stylus": "^0.49.1"
+    "stylus": "^0.49.1",
+    "tedious": "^2.1.5"
   }
 }
