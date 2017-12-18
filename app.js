@@ -26,6 +26,21 @@ var clientFromConnectionString = require('azure-iot-device-amqp').clientFromConn
 var client = clientFromConnectionString(connectionString);
 var Message = require('azure-iot-device').Message;
 
+var Connection = require('tedious').Connection;
+var Request = require('tedious').Request;
+// Create connection to database
+var config = 
+{
+  userName: 'jonathan', // update me
+  password: 'Pepper100$', // update me
+  server: 'stationknodenetwork1.database.windows.net', // update me
+  options: 
+     {
+        database: 'rpitestDB' //update me
+        , encrypt: true
+     }
+}
+var connection = new Connection(config);
 
 // all environments
 app.set('port', process.env.PORT || 3000);
@@ -40,6 +55,46 @@ app.use(express.methodOverride());
 app.use(app.router);
 app.use(require('stylus').middleware(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'public')));
+
+
+
+
+// Attempt to connect and execute queries if connection goes through
+connection.on('connect', function(err) 
+{
+  if (err) 
+    {
+       console.log(err)
+    }
+ else
+    {
+             console.log('it works')
+
+        queryDatabase()
+    }
+}
+);
+function queryDatabase()
+{ console.log('Reading rows from the Table...');
+
+    // Read all rows from table
+  request = new Request(
+       "SELECT top(100) _id,_p_tag, _created_at FROM beacondata order by _created_at desc",
+          function(err, rowCount, rows) 
+             {
+                 console.log(rowCount + ' row(s) returned');
+                 process.exit();
+             }
+         );
+
+  request.on('row', function(columns) {
+     columns.forEach(function(column) {
+         console.log("%s\t%s", column.metadata.colName, column.value);
+      });
+          });
+  connection.execSql(request);
+}
+
 
 // development only
 if ('development' == app.get('env')) {
