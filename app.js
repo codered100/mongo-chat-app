@@ -71,7 +71,7 @@ connection.on('connect', function(err)
     {
              console.log('it works')
 
-        queryDatabase()
+        //queryDatabase() //TEST QUERIES
     }
 }
 );
