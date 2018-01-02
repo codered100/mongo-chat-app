@@ -20,8 +20,9 @@ var MongoOplog = require('mongo-oplog');
 //const oplog = MongoOplog('mongodb://73.170.132.180:27017/local')
 const oplog = MongoOplog('mongodb://oplog-reader:tenacore1525@ds135125-a0.mlab.com:35125,ds135125-a1.mlab.com:35125/local?replicaSet=rs-ds135125&authSource=admin')
 //const oplog = MongoOplog('mongodb://koliada:tenacore1525@ds135125-a0.mlab.com:35125,ds135125-a1.mlab.com:35125/local?replicaSet=rs-ds135125authSource=')
+
 //Azure IoT Hub inits
-var connectionString = 'HostName=big-iot-hub.azure-devices.net;DeviceId=webapp;SharedAccessKey=rZdb/qCZ0SP+1uhMTbYluWIqaqsECp6D2u26TQYY/nc=';
+var connectionString = 'HostName=armconhub2.azure-devices.net;DeviceId=WebAppdevice;SharedAccessKey=8fhVUNHZ7qup+Z4ur+XghvHsJhgmCgUUEta3BngRSUk=';
 var clientFromConnectionString = require('azure-iot-device-amqp').clientFromConnectionString;
 var client = clientFromConnectionString(connectionString);
 var Message = require('azure-iot-device').Message;
@@ -32,11 +33,11 @@ var Request = require('tedious').Request;
 var config = 
 {
   userName: 'jonathan', // update me
-  password: 'Pepper100$', // update me
-  server: 'stationknodenetwork1.database.windows.net', // update me
+  password: 'Let1KoliadaIn2$', // update me
+  server: 'armcondb.database.windows.net', // update me
   options: 
      {
-        database: 'rpitestDB' //update me
+        database: 'ArmConDb' //update me
         , encrypt: true
      }
 }
